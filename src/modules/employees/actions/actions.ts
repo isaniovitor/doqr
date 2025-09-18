@@ -24,7 +24,7 @@ export const getEmployees = async (
       },
     });
 
-    handleFetchError(res);
+    if (!res.ok) return await handleFetchError(res);
     const data = res.status == 204 ? [] : ((await res.json()) as EmployeeDTO[]);
     return { ok: true, data };
   } catch (e) {
@@ -43,7 +43,7 @@ export const getEmployee = async (
       },
     });
 
-    handleFetchError(res);
+    if (!res.ok) return await handleFetchError(res);
     const data = (await res.json()) as EmployeeDTO;
     return { ok: true, data };
   } catch (e) {
@@ -64,7 +64,7 @@ export const addEmployee = async (
       },
     });
 
-    handleFetchError(res);
+    if (!res.ok) return await handleFetchError(res);
     revalidateTag(EMPLOYEES_CACHE_TAG);
     return { ok: true };
   } catch (e) {
@@ -86,7 +86,7 @@ export const editEmployee = async (
       },
     });
 
-    handleFetchError(res);
+    if (!res.ok) return await handleFetchError(res);
     revalidateTag(EMPLOYEES_CACHE_TAG);
     return { ok: true };
   } catch (e) {
@@ -104,17 +104,7 @@ export const removeEmployee = async (id: string): Promise<ActionResult> => {
       },
     });
 
-    if (!res.ok) {
-      const body = await res.text().catch(() => "");
-      return {
-        ok: false,
-        error: `Failed: ${res.status} ${res.statusText}${
-          body ? ` - ${body}` : ""
-        }`,
-      };
-    }
-
-    handleFetchError(res);
+    if (!res.ok) return await handleFetchError(res);
     revalidateTag(EMPLOYEES_CACHE_TAG);
     return { ok: true };
   } catch (e) {

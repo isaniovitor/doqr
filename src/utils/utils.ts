@@ -38,14 +38,10 @@ export const toISOStringFromBR = (dateStr: string): string => {
 
 export const handleFetchError = async <T>(
   res: Response
-): Promise<ActionResult<T> | undefined> => {
-  if (!res.ok) {
-    const body = await res.text().catch(() => "");
-    return {
-      ok: false,
-      error: `Failed: ${res.status} ${res.statusText}${
-        body ? ` - ${body}` : ""
-      }`,
-    };
-  }
+): Promise<ActionResult<T>> => {
+  const body = await res.text().catch(() => "");
+  return {
+    ok: false,
+    error: `Failed: ${res.status} ${res.statusText}${body ? ` - ${body}` : ""}`,
+  };
 };

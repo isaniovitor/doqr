@@ -118,7 +118,7 @@ const EmployeeTable = ({ employees }: { employees: EmployeeDTO[] }) => {
   const [isSearchPending, onSearchTransition] = useTransition();
   const [query, setQuery] = useState<string | undefined>(undefined);
   const [data, setData] = useState(employees);
-  const { items, remove, rollback } = useOptimisticCrud<EmployeeModel>(data);
+  const { items, remove } = useOptimisticCrud<EmployeeModel>(data);
 
   const handleDelete = (id: string) => {
     startTransition(async () => {
@@ -127,12 +127,10 @@ const EmployeeTable = ({ employees }: { employees: EmployeeDTO[] }) => {
       const res = await removeEmployee(id);
       if (res.ok) {
         if (!!query) await runSearch(query);
-
         toast.success("Funcionário deletado!");
         return;
       }
 
-      rollback();
       toast.error(res.error);
     });
   };
@@ -164,6 +162,7 @@ const EmployeeTable = ({ employees }: { employees: EmployeeDTO[] }) => {
             onChange={(e) => setQuery(e.target.value)}
             placeholder={"Buscas funcionário..."}
             className="lg:w-96"
+            data-cy="search-employee"
           />
 
           {isSearchPending && <Loader2Icon className="animate-spin" />}
@@ -174,6 +173,7 @@ const EmployeeTable = ({ employees }: { employees: EmployeeDTO[] }) => {
             variant="default"
             className="cursor-pointer bg-[#7741FB] hover:bg-[#511fd1]"
             aria-label="Novo Funcionário"
+            data-cy="new-employee"
           >
             <Plus /> <span className="hidden md:block">Novo Funcionário</span>
           </Button>

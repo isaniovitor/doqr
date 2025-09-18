@@ -12,8 +12,6 @@ function reducer<
   T extends {
     id?: string;
     isRemoving?: boolean;
-    isCreating?: boolean;
-    isEditing?: boolean;
   }
 >(state: T[], op: OptimisticOp<T>): T[] {
   switch (op.type) {
@@ -38,8 +36,6 @@ const useOptimisticCrud = <
   T extends {
     id?: string;
     isRemoving?: boolean;
-    isCreating?: boolean;
-    isEditing?: boolean;
   }
 >(
   initial: T[]
