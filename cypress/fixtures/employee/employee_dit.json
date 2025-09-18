@@ -1,0 +1,10 @@
+{
+  "id": 1,
+  "name": "Alice Teste",
+  "email": "alice@example.com",
+  "cpf": "06513432324",
+  "phone": "85992501042",
+  "dateOfBith": "1997-08-08T03:00:00",
+  "typeOfHiring": "CLT",
+  "status": true
+}

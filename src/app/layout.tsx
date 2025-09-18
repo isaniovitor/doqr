@@ -1,10 +1,15 @@
+// Start MSW Node in E2E mode (runs on the server)
+if (process.env.NEXT_PUBLIC_E2E === "1") {
+  // Importing is enough—the file calls server.listen()
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  require("@/mocks/node");
+}
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header/Header";
-// import { ToastContainer } from "react-toastify/unstyled";
-// import "react-toastify/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
+import MswProvider from "./msw-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,6 +38,7 @@ export default function RootLayout({
       >
         <Header />
         <ToastContainer />
+        {process.env.NEXT_PUBLIC_E2E === "1" && <MswProvider />}
 
         <main className="max-w-[80%] w-full mt-[96px]">{children}</main>
       </body>

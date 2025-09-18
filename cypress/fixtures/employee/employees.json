@@ -1,0 +1,22 @@
+[
+  {
+    "id": 36,
+    "name": "rosembergson",
+    "email": "ro@gmail.com",
+    "cpf": "06513432324",
+    "phone": "85992501042",
+    "dateOfBith": "2000-08-08T03:00:00",
+    "typeOfHiring": "PJ",
+    "status": false
+  },
+  {
+    "id": 37,
+    "name": "string",
+    "email": "test@gmail.com",
+    "cpf": "06513432324",
+    "phone": "85992501042",
+    "dateOfBith": "2025-09-17T00:00:00",
+    "typeOfHiring": "CLT",
+    "status": true
+  }
+]
